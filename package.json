@@ -1,0 +1,26 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Challenge 10: Team Profile Generator",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexclaytonbootcamp/Module-10-Challenge-Team-Profile-Generator.git"
+  },
+  "author": "Alex Clayton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexclaytonbootcamp/Module-10-Challenge-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/alexclaytonbootcamp/Module-10-Challenge-Team-Profile-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "jest": "^29.3.1"
+  }
+}
