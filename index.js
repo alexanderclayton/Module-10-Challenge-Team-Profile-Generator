@@ -1,11 +1,18 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const jest = require('jest');
+const path = require('path');
 
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
+
+const DIST_DIR = path.resolve(__dirname, 'dist');
+const outputPathHTML = path.join(DIST_DIR, 'index.html');
+const outputPathCSS = path.join(DIST_DIR, 'style.css');
+const renderFilesHTML = require('./src/HTML/helperCodeHTML');
+const renderFilesCSS = require('./src/CSS/helperCodeCSS');
 
 const teamArr = [];
 
@@ -79,7 +86,8 @@ function init() {
                         addManager();
                         break;
                     case 'No, my team is complete':
-                        testFunction();
+                        generateHTML();
+                        generateCSS();
                 }
             })
     }
@@ -203,8 +211,13 @@ function init() {
             })
     }
 
-    function testFunction() {
+    function generateHTML() {
         console.log(teamArr)
+        fs.writeFileSync(outputPathHTML, renderFilesHTML(teamArr), 'utf-8')
+    }
+
+    function generateCSS() {
+        fs.writeFileSync(outputPathCSS, renderFilesCSS())
     }
     
     addTeamMemeber();

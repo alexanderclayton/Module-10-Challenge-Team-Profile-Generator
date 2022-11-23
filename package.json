@@ -21,6 +21,7 @@
   "homepage": "https://github.com/alexclaytonbootcamp/Module-10-Challenge-Team-Profile-Generator#readme",
   "dependencies": {
     "inquirer": "^8.2.4",
-    "jest": "^29.3.1"
+    "jest": "^29.3.1",
+    "path": "^0.12.7"
   }
 }
