@@ -23,6 +23,7 @@ module.exports = () => {
     #employee-card {
         margin: 1rem;
         width: 13rem;
+        min-width: 13rem;
         border: solid 1px grey;
         border-radius: 0.25rem;
         box-shadow: 5px 5px 5px grey;

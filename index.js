@@ -3,7 +3,6 @@ const fs = require('fs');
 const jest = require('jest');
 const path = require('path');
 
-const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
@@ -16,43 +15,39 @@ const renderFilesCSS = require('./src/CSS/helperCodeCSS');
 
 const teamArr = [];
 
-function init() {
-
-    function addTeamMemeber() {
+function init() {            
+    function addManager() {
         console.log("Let's start building your team!");
-        
         inquirer
             .prompt([
                 {
-                    type: 'list',
-                    message: 'What is the role of your new team member?',
-                    choices:
-                        [
-                            'Employee',
-                            'Engineer',
-                            'Intern',
-                            'Manager',
-                        ],
-                    name: 'role'
-                }
+                    type: 'input',
+                    message: "What is the Manager's name?",
+                    name: 'managerName',
+                },
+                {
+                    type: 'input',
+                    message: "What is the Manager's ID?",
+                    name: 'managerId',
+                },
+                {
+                    type: 'input',
+                    message: "What is the Manager's email address?",
+                    name: 'managerEmail',
+                },
+                {
+                    type: 'input',
+                    message: "What is the Manager's office number?",
+                    name: 'managerOfficeNumber',
+                },
             ])
-            .then(selection => {
-                switch (selection.role) {
-                    case 'Employee':
-                        addEmployee();
-                        break;
-                    case 'Engineer':
-                        addEngineer();
-                        break;
-                    case 'Intern':
-                        addIntern();
-                        break;
-                    case 'Manager':
-                        addManager();
-                        break;
-                }
+            .then(data => {
+                const manager = new Manager(data.managerName, data.managerId, data.managerEmail, data.managerOfficeNumber);
+                teamArr.push(manager);
+                addNewMember();
             })
-    }
+        }
+    
 
     function addNewMember() {
         inquirer
@@ -62,10 +57,8 @@ function init() {
                     message: 'Would you like to add another member to your team?',
                     choices:
                         [
-                            'Employee',
                             'Engineer',
                             'Intern',
-                            'Manager',
                             'No, my team is complete',
                         ],
                     name: 'newRole'
@@ -73,48 +66,16 @@ function init() {
             ])
             .then(selection => {
                 switch (selection.newRole) {
-                    case 'Employee':
-                        addEmployee();
-                        break;
                     case 'Engineer':
                         addEngineer();
                         break;
                     case 'Intern':
                         addIntern();
                         break;
-                    case 'Manager':
-                        addManager();
-                        break;
                     case 'No, my team is complete':
                         generateHTML();
                         generateCSS();
                 }
-            })
-    }
-
-    function addEmployee() {
-        inquirer
-            .prompt([
-                {
-                    type: 'input',
-                    message: "What is the Employee's name?",
-                    name: 'employeeName',
-                },
-                {
-                    type: 'input',
-                    message: "What is the Employee's ID?",
-                    name: 'employeeId',
-                },
-                {
-                    type: 'input',
-                    message: "What is the Employee's email address?",
-                    name: 'employeeEmail',
-                },
-            ])
-            .then(data => {
-                const employee = new Employee(data.employeeName, data.employeeId, data.employeeEmail);
-                teamArr.push(employee);
-                addNewMember();
             })
     }
 
@@ -180,37 +141,6 @@ function init() {
             })
     }
 
-    function addManager() {
-        inquirer
-            .prompt([
-                {
-                    type: 'input',
-                    message: "What is the Manager's name?",
-                    name: 'managerName',
-                },
-                {
-                    type: 'input',
-                    message: "What is the Manager's ID?",
-                    name: 'managerId',
-                },
-                {
-                    type: 'input',
-                    message: "What is the Manager's email address?",
-                    name: 'managerEmail',
-                },
-                {
-                    type: 'input',
-                    message: "What is the Manager's office number?",
-                    name: 'managerOfficeNumber',
-                },
-            ])
-            .then(data => {
-                const manager = new Manager(data.managerName, data.managerId, data.managerEmail, data.managerOfficeNumber);
-                teamArr.push(manager);
-                addNewMember();
-            })
-    }
-
     function generateHTML() {
         console.log(teamArr)
         fs.writeFileSync(outputPathHTML, renderFilesHTML(teamArr), 'utf-8')
@@ -220,7 +150,7 @@ function init() {
         fs.writeFileSync(outputPathCSS, renderFilesCSS())
     }
     
-    addTeamMemeber();
+    addManager();
 
 }
 
